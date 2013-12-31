@@ -48,6 +48,70 @@ var RedisProducer = module.exports = producer(
             metric: parseInt(section.rate, 10)
           });
         }
+
+        if (section.ereq) {
+          self.emit('data', {
+            service: service + '/request-errors',
+            description: 'Request errors',
+            metric: parseInt(section.ereq, 10)
+          });
+        }
+
+        if (section.econ) {
+          self.emit('data', {
+            service: service + '/connection-errors',
+            description: 'Connection errors',
+            metric: parseInt(section.econ, 10)
+          });
+        }
+
+        if (section.eresp) {
+          self.emit('data', {
+            service: service + '/response-errors',
+            description: 'Response errors',
+            metric: parseInt(section.eresp, 10)
+          });
+        }
+
+        if (section.hrsp_1xx) {
+          self.emit('data', {
+            service: service + '/http-1xx',
+            description: '1xx HTTP responses',
+            metric: parseInt(section.hrsp_1xx, 10)
+          });
+        }
+
+        if (section.hrsp_2xx) {
+          self.emit('data', {
+            service: service + '/http-2xx',
+            description: '2xx HTTP responses',
+            metric: parseInt(section.hrsp_2xx, 10)
+          });
+        }
+
+        if (section.hrsp_3xx) {
+          self.emit('data', {
+            service: service + '/http-3xx',
+            description: '3xx HTTP responses',
+            metric: parseInt(section.hrsp_3xx, 10)
+          });
+        }
+
+        if (section.hrsp_4xx) {
+          self.emit('data', {
+            service: service + '/http-4xx',
+            description: '4xx HTTP responses',
+            metric: parseInt(section.hrsp_4xx, 10)
+          });
+        }
+
+        if (section.hrsp_5xx) {
+          self.emit('data', {
+            service: service + '/http-5xx',
+            description: '5xx HTTP responses',
+            metric: parseInt(section.hrsp_5xx, 10)
+          });
+        }
       });
     });
   }
