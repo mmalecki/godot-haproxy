@@ -1,0 +1,22 @@
+{
+  "name": "mmalecki",
+  "version": "0.0.0",
+  "description": "HAProxy producer for Godot",
+  "keyword": [
+    "godot",
+    "haproxy",
+    "metrics"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mmalecki/godot-haproxy.git"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "haproxy": "0.0.4",
+    "godot-producer": "0.0.1"
+  },
+  "devDependencies": {
+    "godot": "~0.7.5"
+  }
+}
