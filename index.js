@@ -1,7 +1,7 @@
 var HAProxy = require('haproxy');
 var producer = require('godot-producer');
 
-var RedisProducer = module.exports = producer(
+var HAProxyProducer = module.exports = producer(
   function constructor(options) {
     var self = this;
     self.haproxy = new HAProxy(options.haproxy);
