@@ -1,5 +1,6 @@
 {
-  "name": "mmalecki",
+  "name": "godot-haproxy",
+  "author": "Maciej Małecki <me@mmalecki.com>",
   "version": "0.1.0",
   "description": "HAProxy producer for Godot",
   "keyword": [
