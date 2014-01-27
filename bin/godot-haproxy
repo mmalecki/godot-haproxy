@@ -1,0 +1,33 @@
+#!/usr/bin/env node
+var godot = require('godot');
+var HAProxyProducer = require('../');
+var argv = require('optimist')
+  .alias('host', 'h')
+  .describe('host', 'Godot host')
+  .default('host', 'localhost')
+
+  .alias('port', 'p')
+  .describe('port', 'Godot port')
+  .demand('port')
+
+  .alias('socket', 's')
+  .describe('socket', 'haproxy socket')
+  .demand('socket')
+
+  .alias('type', 't')
+  .describe('type', 'Socket type, either tcp or udp')
+  .default('type', 'tcp')
+
+  .describe('ttl', 'Metric TTL')
+  .default(4000)
+
+  .argv;
+
+var producer = new HAProxyProducer({
+  haproxy: argv.socket,
+  ttl: argv.ttl
+});
+godot.createClient({
+  type: argv.type,
+  producers: [ producer ]
+}).connect(argv.port, argv.host);
