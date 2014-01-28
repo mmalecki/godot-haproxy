@@ -17,7 +17,8 @@
     "haproxy": "0.0.4",
     "godot-producer": "0.0.1",
     "optimist": "~0.6.0",
-    "godot": "~0.7.5"
+    "godot": "~0.7.5",
+    "nconf": "~0.6.9"
   },
   "bin": {
     "godot-haproxy": "./bin/godot-haproxy"

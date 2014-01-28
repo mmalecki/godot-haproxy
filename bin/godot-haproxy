@@ -1,33 +1,44 @@
 #!/usr/bin/env node
 var godot = require('godot');
 var HAProxyProducer = require('../');
-var argv = require('optimist')
-  .alias('host', 'h')
-  .describe('host', 'Godot host')
-  .default('host', 'localhost')
+var nconf = require('nconf');
+var config;
 
-  .alias('port', 'p')
-  .describe('port', 'Godot port')
-  .demand('port')
+nconf
+  .argv({
+    host:   { alias: 'h' },
+    port:   { alias: 'p' },
+    type:   { alias: 't' },
+    // Type was supposed to be here, but `nconf` freaks
+    socket: { alias: 's' },
+    config: { alias: 'c' }
+  });
 
-  .alias('socket', 's')
-  .describe('socket', 'haproxy socket')
-  .demand('socket')
+config = nconf.get('config');
+if (config) {
+  nconf.file(nconf.get('config'));
+}
 
-  .alias('type', 't')
-  .describe('type', 'Socket type, either tcp or udp')
-  .default('type', 'tcp')
-
-  .describe('ttl', 'Metric TTL')
-  .default(4000)
-
-  .argv;
+if (nconf.get('help')) {
+  console.log([
+    'usage: godot-haproxy [options]\n',
+    'options:',
+    '  -c, --config  Config file to use (default: config/development.json)',
+    '  -h, --host    Godot host',
+    '  -p, --port    Godot port',
+    '  -t, --type    Godot socket type (tcp or udp)',
+    '  -s, --socket  HAProxy stat socket',
+    '      --help            You\'re staring at it'
+  ].join('\n') + '\n');
+  process.exit();
+}
 
 var producer = new HAProxyProducer({
-  haproxy: argv.socket,
-  ttl: argv.ttl
+  haproxy: nconf.get('socket'),
+  ttl: nconf.get('ttl')
 });
+
 godot.createClient({
-  type: argv.type,
+  type: nconf.get('type'),
   producers: [ producer ]
-}).connect(argv.port, argv.host);
+}).connect(nconf.get('port'), nconf.get('host'));
